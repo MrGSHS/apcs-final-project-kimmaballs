@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pool;
+ 
 
 /**
  *This class is a Ball object that can be used as a cue ball or a colored ball.
@@ -60,6 +60,14 @@ public class Ball
     public int getY()
     {
         return y;
+    }
+    
+     public void setX(int newNum) {
+    
+         x = newNum;
+    }
+    public void setY(int newNum) {
+        y = newNum;
     }
     
     public int getXV() {

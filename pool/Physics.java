@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pool;
+ 
 
 /**
  * This class determines the physics that the balls will use. For example, how each ball will collide with another and friction.
