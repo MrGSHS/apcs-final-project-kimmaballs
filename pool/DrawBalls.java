@@ -12,7 +12,7 @@ import java.awt.Graphics;
  */
 //attempting to draw all the balls and assign each circle to a Ball object
 public class DrawBalls {
-    public void DrawBalls(Graphics g)
+    public void DrawingBalls(Graphics g)
     {
         BallCollection balls=new BallCollection();
         for(int i = 0; i<16;i++)
@@ -24,7 +24,7 @@ public class DrawBalls {
     }
     public static void main(String[] args)
     {
-        DrawBalls balling= new DrawBalls();
-        
+        Graphics g= getGraphics();
+        DrawingBalls(g);
     }
 }
