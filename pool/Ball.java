@@ -12,21 +12,21 @@
 
 public class Ball
 { 
-    int FPS=30;
-    int num;
-    int x;
-    int y;
-    int xVelocity, yVelocity;
+    final double FPS=30 ;
+    private int num;
+    private double x;
+    private double y;
+    private double xVelocity, yVelocity;
 
     /**
      * Constructs a ball with a number from 0 to 15.
      * 
-     * @param num integer from 0 to 15 that represents the pool ball's number. 0 is the cue ball, while 1 - 15 represents the 15 colored balls.
+     * @param num doubleeger from 0 to 15 that represents the pool ball's number. 0 is the cue ball, while 1 - 15 represents the 15 colored balls.
      * @param x x coordinate of ball
      * @param y y coordinate of ball
      * 
      */
-    public Ball(int num, int x, int y)
+    public Ball(int num, double x, double y)
     {
 
         this.num=num;
@@ -50,7 +50,7 @@ public class Ball
      * 
      * @return x coordinate of ball 
      */
-    public int getX()
+    public double getX()
     {
         return x;
     }
@@ -59,36 +59,36 @@ public class Ball
      * 
      * @return y coordinate of ball 
      */
-    public int getY()
+    public double getY()
     {
         return y;
     }
 
-    public void setX(int newNum) {
+    public void setX(double newNum) {
         x = newNum;
     }
 
-    public void setY(int newNum) {
+    public void setY(double newNum) {
         y = newNum;
     }
     
     //gets x velocity
-    public int getXV() {
+    public double getXV() {
         return xVelocity;
     }
     
     //gets y velocity
-    public int getYV() {
+    public double getYV() {
         return yVelocity;
     }
 
     //sets new x velocity
-    public void setXV(int newNum) {
+    public void setXV(double newNum) {
         xVelocity = newNum;
     }
     
     //sets new y velocity
-    public void setYV(int newNum) {
+    public void setYV(double newNum) {
         yVelocity = newNum;
     }
    

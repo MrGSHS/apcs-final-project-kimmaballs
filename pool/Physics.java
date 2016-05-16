@@ -10,6 +10,7 @@
  */
 public class Physics 
 {
+    final int RADIUS = 20;
     /*
      * does not construct anything. Has default constructor.
      */
@@ -28,25 +29,31 @@ public class Physics
     public boolean inContact(Ball a, Ball b)
     {
 
-        int xa = a.getX() + 20;
-        int xb = b.getX() + 20;
-        int ya = a.getY() + 20;
-        int yb = b.getY() + 20;
+        double xa = a.getX() + RADIUS;
+        double xb = b.getX() + RADIUS;
+        double ya = a.getY() + RADIUS;
+        double yb = b.getY() + RADIUS;
         if(Math.sqrt(((xa - xb) * (xa - xb)) + ((ya - yb) * (ya - yb)))<=40)
         {
             return true;
         }
         return false;
     }
-    //should return new velocity after a ball has come in contact with another
-    public int newVelocity(Ball a, Ball b)
+    //should set new velocities of Balls a and b after a  has come in contact with b
+    public void newVelocity(Ball a, Ball b)
     {
-        int xa = a.getX() + 20;
-        int xb = b.getX() + 20;
-        int ya = a.getY() + 20;
-        int yb = b.getY() + 20;
+        double xa = a.getX() + RADIUS;
+        double xb = b.getX() + RADIUS;
+        double ya = a.getY() + RADIUS;
+        double yb = b.getY() + RADIUS;
+        double hypo=Math.sqrt(((xa - xb) * (xa - xb)) + ((ya - yb) * (ya - yb)));
         if(inContact(a,b))
         {
+            double theta= Math.acos((xa-xb)/hypo);
+            b.setXV(Math.hypot(xa,xb)*Math.cos(theta));
+            b.setYV(Math.hypot(xa,xb)*Math.sin(theta));
+            a.setXV(0);
+            a.setYV(0);
             
         }
     }
