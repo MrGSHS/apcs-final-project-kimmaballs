@@ -92,11 +92,19 @@ public class Ball
         yVelocity = newNum;
     }
    
-    //moves the ball
+    //moves the ball NOT WORKING
     public void move()
     {
-        x+=xVelocity*FPS;
-        y+=yVelocity*FPS;
+       x+=xVelocity*(1/FPS);
+       y+=yVelocity*(1/FPS);
+       friction();
+    }
+    
+    //simulates friction
+    public void friction()
+    {
+        xVelocity+=(-xVelocity)*.01;
+        yVelocity+=(-yVelocity)*.01;
     }
 }
 

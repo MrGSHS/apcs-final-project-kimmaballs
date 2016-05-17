@@ -54,7 +54,7 @@ public class Physics
             b.setYV(Math.hypot(xa,xb)*Math.sin(theta));
             a.setXV(0);
             a.setYV(0);
-            
         }
     }
+    
 }
