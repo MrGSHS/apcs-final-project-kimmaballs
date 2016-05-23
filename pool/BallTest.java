@@ -1,8 +1,13 @@
+/**
+ * test if Ball class works
+ * @author Taehwan Kim and Michael Ma
+ */
 import java.util.*;
 public class BallTest
 {
     public static void main (String [] args)
     {
+        int FPS=30;
         Scanner sc= new Scanner(System.in);
         Ball a= new Ball(1,0,0);
         System.out.println("NUMBER: " + a.getNumber());
@@ -35,10 +40,15 @@ public class BallTest
         int i=0;
         while(i<x)
         {
-            a.move();
+            for(int frames =0; frames<FPS; frames++)
+            {
+                a.move();
+            }
             i++;
         }
         System.out.println("NEW X COORDINATE: " + a.getX());
         System.out.println("NEW Y COORDINATE: " + a.getY());
+        System.out.println("NEW X VELOCITY: " + a.getXV());
+        System.out.println("NEW Y VELOCITY: " + a.getYV());
     }
 }

@@ -71,12 +71,12 @@ public class Ball
     public void setY(double newNum) {
         y = newNum;
     }
-    
+
     //gets x velocity
     public double getXV() {
         return xVelocity;
     }
-    
+
     //gets y velocity
     public double getYV() {
         return yVelocity;
@@ -86,25 +86,29 @@ public class Ball
     public void setXV(double newNum) {
         xVelocity = newNum;
     }
-    
+
     //sets new y velocity
     public void setYV(double newNum) {
         yVelocity = newNum;
     }
-   
-    //moves the ball NOT WORKING
+
+    //moves the ball for a total of 1 frame NOT WORKING
     public void move()
     {
-       x+=xVelocity*(1/FPS);
-       y+=yVelocity*(1/FPS);
-       friction();
+        x+=xVelocity*(1/FPS);
+        y+=yVelocity*(1/FPS);
+        friction();
     }
-    
-    //simulates friction
+
+    //simulates friction (frictional decrement is subject to change after we figure out realistic speed)
     public void friction()
     {
         xVelocity+=(-xVelocity)*.01;
         yVelocity+=(-yVelocity)*.01;
+        if(Math.abs(xVelocity) < 0.01 || Math.abs(yVelocity) <0.01)
+        {
+            xVelocity=0;
+            yVelocity=0;
+        }
     }
 }
-
