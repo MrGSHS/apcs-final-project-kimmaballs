@@ -1,114 +1,134 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.awt.*;
+import java.applet.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
+class Ball
+{
+    double Vx = 0; //x velocity
+    double Vy = 0; //y velocity
+    double Px = 0; //x position
+    double Py = 0; //y position
 
-/**
- *This class is a Ball object that can be used as a cue ball or a colored ball.
- * @author Taehwan Kim and Michael Ma
+    double Radius=2; //set by constructor
+    double Mass=1; //calculated in constructor
+    int Number;
 
- */
-
-public class Ball
-{ 
-    final double FPS=30 ;
-    private int num;
-    private double x;
-    private double y;
-    private double xVelocity, yVelocity;
-
-    /**
-     * Constructs a ball with a number from 0 to 15.
-     * 
-     * @param num doubleeger from 0 to 15 that represents the pool ball's number. 0 is the cue ball, while 1 - 15 represents the 15 colored balls.
-     * @param x x coordinate of ball
-     * @param y y coordinate of ball
-     * 
-     */
-    public Ball(int num, double x, double y)
+    Color BallColor = new Color(0,0,0); //balls initiate to white (who knows why) smile emoticon
+    public Ball(double x, double y, int num) //Constructor: Initiates values
     {
 
-        this.num=num;
-        this.x=x;
-        this.y=y;
-        xVelocity=0;
-        yVelocity=0;
-
+        Px = x;
+        Py = y;
+        Number=num;
     }
 
-    /**
-     * Returns the number of the ball. If it is the cue ball, it will return 0.
-     * @return the number of the ball.
-     */
-    public int getNumber()
+    public Ball(double x, double y, int num, Color c) //Constructor: Takes a color too
     {
-        return num;   
+
+        Px = x;
+        Py = y;
+        Number=num;
+        BallColor=c;
     }
 
-    /**
-     * 
-     * @return x coordinate of ball 
-     */
-    public double getX()
+    public void Friction()
     {
-        return x;
-    }
-
-    /**
-     * 
-     * @return y coordinate of ball 
-     */
-    public double getY()
-    {
-        return y;
-    }
-
-    public void setX(double newNum) {
-        x = newNum;
-    }
-
-    public void setY(double newNum) {
-        y = newNum;
-    }
-
-    //gets x velocity
-    public double getXV() {
-        return xVelocity;
-    }
-
-    //gets y velocity
-    public double getYV() {
-        return yVelocity;
-    }
-
-    //sets new x velocity
-    public void setXV(double newNum) {
-        xVelocity = newNum;
-    }
-
-    //sets new y velocity
-    public void setYV(double newNum) {
-        yVelocity = newNum;
-    }
-
-    //moves the ball for a total of 1 frame NOT WORKING
-    public void move()
-    {
-        x+=xVelocity*(1/FPS);
-        y+=yVelocity*(1/FPS);
-        friction();
-    }
-
-    //simulates friction (frictional decrement is subject to change after we figure out realistic speed)
-    public void friction()
-    {
-        xVelocity+=(-xVelocity)*.01;
-        yVelocity+=(-yVelocity)*.01;
-        if(Math.abs(xVelocity) < 0.01 || Math.abs(yVelocity) <0.01)
+        Vx=Vx+(Vx*(-1))/75;
+        Vy=Vy+(Vy*(-1))/75;
+        if(Math.abs(Vx) < 0.1 || Math.abs(Vy) <0.1)
         {
-            xVelocity=0;
-            yVelocity=0;
+            Vx=0;
+            Vy=0;
         }
+    }
+
+    public static void Pocket(Ball b)
+    {
+        double y=b.Py;
+        double x=b.Px;
+
+        if(y<(double)50/10||y>(double)550/10)
+        {
+            if(x<(double)50/10||((double)550/10<x&&(double)650/10>x)||x>(double)1150/10)
+            {
+                if(b.Number!=8)
+                {
+                    b.Py=133700;
+                    b.Vx=0;
+                    b.Vy=0;
+                }
+                else
+                {
+                    globals.stop=true;
+                }
+            }
+        }
+
+    }
+
+    public void addVelocity(double x, double y)//increase the velocity by some amount (used to start movement)
+    {
+        Vx+=x;
+        Vy+=y;
+
+    }
+
+    public double Velocity() //returns the total velocity of the ball
+    {
+        return Math.sqrt(Vx * Vx + Vy * Vy);
+
+    }
+
+    public double Momentum() //returns total momentum of ball
+    { //p = mv
+        return Mass * Vx + Mass * Vy;
+
+    }
+
+    public double Kinetic() //returns total kinetic energy of ball
+    {// ke = 1/2 m v^2
+        return .5 * Mass * Velocity() * Velocity();
+
+    }
+
+    public void WallBounceX() //the ball hits a side wall
+    {
+        Vx = -Vx; //ball switches x velocity
+    }
+
+    public void WallBounceY() //the ball hits a top or bottom wall
+    {
+        Vy = -Vy; //ball switches y velocity
+    }
+
+    public void Move(double t) //Moves the ball by one cycle
+    {
+        Px = Px + Vx * t;
+        Py = Py + Vy * t;
+    }
+
+    public void Draw(Graphics g) //Draws the ball
+    {
+        int top, left, size;
+        left = (int)(Px * globals.DrawScale);
+        top = (int)(Py * globals.DrawScale);
+        size = (int)(2 * Radius * globals.DrawScale);
+
+        g.setColor(BallColor); //Draw the ball in its color
+        g.fillOval(left, top, size, size);
+        g.setColor(Color.white);
+        if(Number !=16)
+        {
+            if(Number>8) //striped
+            {
+                g.fillRect(left+3,top+15,37,10);
+                g.setColor(Color.black);
+            }
+        }
+
+        g.drawString(Integer.toString(Number),left+20, top+25);
+        //g.setColor(Color.black); //Draw the outline of the ball
+        //g.drawOval(left, top, size, size);
     }
 }
