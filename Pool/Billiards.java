@@ -6,7 +6,7 @@ import java.awt.event.*;
 public class Billiards extends Applet implements Runnable,MouseMotionListener,MouseListener
 {   
     Thread BallTimer; //used for loops to draw and move balls,
-    
+    private final double MASS =1;
 
     //used for double bufferring
     Image offImage;
@@ -219,13 +219,14 @@ public class Billiards extends Applet implements Runnable,MouseMotionListener,Mo
                         overlap = true; //they are overlaping
                 }
             } while (overlap);
-
+            
+            //will delete
             b[i] = new Ball(tmpX, tmpY, i+1);
             b[i].Vx = (Math.random() * globals.VelocityRange + globals.MinVelocity) * PosNegRand();
             b[i].Vy = (Math.random() * globals.VelocityRange + globals.MinVelocity) * PosNegRand();
             b[i].BallColor = RandColor();
         }
-
+        // add balls here
         b[15].BallColor = Color.white;
 
         repaint(); //just make sure that the table gets painted
@@ -370,8 +371,8 @@ public class Billiards extends Applet implements Runnable,MouseMotionListener,Mo
         Vp2 = PerpendicularVelocity(B2.Vx, B2.Vy, Dx2, Dy2, B2.Radius);
 
         //use the formulas in the method to find new straight velocities for each ball
-        newVs1 = CollisionVelocity(Vs1, Vs2, B1.Mass, B2.Mass);
-        newVs2 = CollisionVelocity(Vs2, Vs1, B2.Mass, B1.Mass);
+        newVs1 = CollisionVelocity(Vs1, Vs2);
+        newVs2 = CollisionVelocity(Vs2, Vs1);
 
         //now we get new X and Y velocities for each, using the new straight velocity and the
         //unaffected perpendicular velocity component
@@ -400,8 +401,8 @@ public class Billiards extends Applet implements Runnable,MouseMotionListener,Mo
     {
         return Vs * Dy / R + Vp * Dx / R;
     } //y velocity from S and P
-    public double CollisionVelocity(double V1, double V2, double m1, double m2) //Returns velocity of a ball after collision
+    public double CollisionVelocity(double V1, double V2) //Returns velocity of a ball after collision
     {
-        return V1 * (m1-m2) / (m1+m2) + V2 * (2 * m2) / (m1 + m2);
+        return V1 * (MASS-MASS) / (MASS+MASS) + V2 * (2 * MASS) / (MASS + MASS);
     }
 }

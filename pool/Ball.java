@@ -11,7 +11,6 @@ class Ball
     double Py = 0; //y position
 
     double Radius=2; //set by constructor
-    double Mass=1; //calculated in constructor
     int Number;
 
     Color BallColor = new Color(0,0,0); //balls initiate to white (who knows why) smile emoticon
@@ -77,18 +76,6 @@ class Ball
     public double Velocity() //returns the total velocity of the ball
     {
         return Math.sqrt(Vx * Vx + Vy * Vy);
-
-    }
-
-    public double Momentum() //returns total momentum of ball
-    { //p = mv
-        return Mass * Vx + Mass * Vy;
-
-    }
-
-    public double Kinetic() //returns total kinetic energy of ball
-    {// ke = 1/2 m v^2
-        return .5 * Mass * Velocity() * Velocity();
 
     }
 
