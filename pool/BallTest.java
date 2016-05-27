@@ -1,54 +1,35 @@
+
 /**
- * test if Ball class works
+ * Write a description of class BallTest here.
+ * 
  * @author Taehwan Kim and Michael Ma
+ * @version 5-27-16
  */
-import java.util.*;
 public class BallTest
 {
-    public static void main (String [] args)
+    public static void main(String[] args)
     {
-        int FPS=30;
-        Scanner sc= new Scanner(System.in);
-        Ball a= new Ball(1,0,0);
-        System.out.println("NUMBER: " + a.getNumber());
-        System.out.println();
-        //gets and changes x and y VELOCITYs
-        System.out.println("X COORDINATE: " + a.getX());
-        System.out.println("SET NEW X COORDINATE: ");
-        a.setX(sc.nextDouble());
-        System.out.println("NEW X COORDINATE: " + a.getX());
-        System.out.println("Y COORDINATE: " + a.getY());
-        System.out.println("SET NEW Y COORDINATE: ");
-        a.setY(sc.nextDouble());
-        System.out.println("NEW Y COORDINATE: " + a.getY());
-        System.out.println();
-        //gets and changes x and y velocities
-        System.out.println("X VELOCITY: " + a.getXV());
-        System.out.println("SET NEW X VELOCITY: ");
-        a.setXV(sc.nextDouble());
-        System.out.println("NEW X VELOCITY: " + a.getXV());
-        System.out.println("Y VELOCITY: " + a.getYV());
-        System.out.println("SET NEW Y VELOCITY: ");
-        a.setYV(sc.nextDouble());
-        System.out.println("NEW Y VELOCITY: " + a.getYV());
-        System.out.println();
-        //prints position after chosen amount of seconds.
-        System.out.println("X COORDINATE: " + a.getX());
-        System.out.println("Y COORDINATE: " + a.getY());
-        System.out.println("HOW MANY SECONDS: ");
-        int x=sc.nextInt();
-        int i=0;
-        while(i<x)
+        Ball a=new Ball(0,0,1);
+        System.out.println(a.getNumber());
+        a.addVelocity(100,100);
+        System.out.println("x velocity: " + a.getVx());
+        System.out.println("y velocity: " + a.getVy());
+        System.out.println(" x position: " + a.getPx());
+        System.out.println(" y position: " + a.getPy());
+        a.setVx(10);
+        a.setVy(10);
+        a.setPx(40);
+        a.setPy(40);
+        System.out.println("new x velocity: " + a.getVx());
+        System.out.println("new y velocity: " + a.getVy());
+        System.out.println("new x position: " + a.getPx());
+        System.out.println("new y position: " + a.getPy());
+        for(int i=0;i<20;i++)
         {
-            for(int frames =0; frames<FPS; frames++)
-            {
-                a.move();
-            }
-            i++;
+            a.move(1);
+            a.friction();
         }
-        System.out.println("NEW X COORDINATE: " + a.getX());
-        System.out.println("NEW Y COORDINATE: " + a.getY());
-        System.out.println("NEW X VELOCITY: " + a.getXV());
-        System.out.println("NEW Y VELOCITY: " + a.getYV());
+        System.out.println("new x velocity: " + a.getVx());
+        System.out.println("new y velocity: " + a.getVy());
     }
 }
